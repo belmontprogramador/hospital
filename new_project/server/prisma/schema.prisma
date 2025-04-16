@@ -1,0 +1,187 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model his_accounts {
+  acc_id      Int     @id @default(autoincrement())
+  acc_name    String? @db.VarChar(200)
+  acc_desc    String? @db.Text
+  acc_type    String? @db.VarChar(200)
+  acc_number  String? @db.VarChar(200)
+  acc_amount  String? @db.VarChar(200)
+}
+
+model his_admin {
+  ad_id    Int     @id @default(autoincrement())
+  ad_fname String? @db.VarChar(200)
+  ad_lname String? @db.VarChar(200)
+  ad_email String? @db.VarChar(200)
+  ad_pwd   String? @db.VarChar(200)
+  ad_dpic  String? @db.VarChar(200)
+}
+
+model his_assets {
+  asst_id     Int     @id @default(autoincrement())
+  asst_name   String? @db.VarChar(200)
+  asst_desc   String? @db.Text
+  asst_vendor String? @db.VarChar(200)
+  asst_status String? @db.VarChar(200)
+  asst_dept   String? @db.VarChar(200)
+}
+
+model his_docs {
+  doc_id     Int     @id @default(autoincrement())
+  doc_fname  String? @db.VarChar(200)
+  doc_lname  String? @db.VarChar(200)
+  doc_email  String? @db.VarChar(200)
+  doc_pwd    String? @db.VarChar(200)
+  doc_dept   String? @db.VarChar(200)
+  doc_number String? @db.VarChar(200)
+  doc_dpic   String? @db.VarChar(200)
+}
+
+model his_equipments {
+  eqp_id     Int     @id @default(autoincrement())
+  eqp_code   String? @db.VarChar(200)
+  eqp_name   String? @db.VarChar(200)
+  eqp_vendor String? @db.VarChar(200)
+  eqp_desc   String? @db.Text
+  eqp_dept   String? @db.VarChar(200)
+  eqp_status String? @db.VarChar(200)
+  eqp_qty    String? @db.VarChar(200)
+}
+
+model his_laboratory {
+  lab_id          Int      @id @default(autoincrement())
+  lab_pat_name    String?  @db.VarChar(200)
+  lab_pat_ailment String?  @db.VarChar(200)
+  lab_pat_number  String?  @db.VarChar(200)
+  lab_pat_tests   String?  @db.Text
+  lab_pat_results String?  @db.Text
+  lab_number      String?  @db.VarChar(200)
+  lab_date_rec    DateTime? @default(now()) @updatedAt
+}
+
+model his_medical_records {
+  mdr_id          Int      @id @default(autoincrement())
+  mdr_number      String?  @db.VarChar(200)
+  mdr_pat_name    String?  @db.VarChar(200)
+  mdr_pat_adr     String?  @db.VarChar(200)
+  mdr_pat_age     String?  @db.VarChar(200)
+  mdr_pat_ailment String?  @db.VarChar(200)
+  mdr_pat_number  String?  @db.VarChar(200)
+  mdr_pat_prescr  String?  @db.Text
+  mdr_date_rec    DateTime @default(now()) @updatedAt
+}
+
+model his_patients {
+  pat_id              Int      @id @default(autoincrement())
+  pat_fname           String?  @db.VarChar(200)
+  pat_lname           String?  @db.VarChar(200)
+  pat_dob             String?  @db.VarChar(200)
+  pat_age             String?  @db.VarChar(200)
+  pat_number          String?  @db.VarChar(200)
+  pat_addr            String?  @db.VarChar(200)
+  pat_phone           String?  @db.VarChar(200)
+  pat_type            String?  @db.VarChar(200)
+  pat_date_joined     DateTime @default(now()) @updatedAt
+  pat_ailment         String?  @db.VarChar(200)
+  pat_discharge_status String?  @db.VarChar(200)
+}
+
+model his_patient_transfers {
+  t_id         Int     @id @default(autoincrement())
+  t_hospital   String? @db.VarChar(200)
+  t_date       String? @db.VarChar(200)
+  t_pat_name   String? @db.VarChar(200)
+  t_pat_number String? @db.VarChar(200)
+  t_status     String? @db.VarChar(200)
+}
+
+model his_payrolls {
+  pay_id             Int      @id @default(autoincrement())
+  pay_number         String?  @db.VarChar(200)
+  pay_doc_name       String?  @db.VarChar(200)
+  pay_doc_number     String?  @db.VarChar(200)
+  pay_doc_email      String?  @db.VarChar(200)
+  pay_emp_salary     String?  @db.VarChar(200)
+  pay_date_generated DateTime @default(now()) @updatedAt
+  pay_status         String?  @db.VarChar(200)
+  pay_descr          String?  @db.Text
+}
+
+model his_pharmaceuticals {
+  phar_id     Int     @id @default(autoincrement())
+  phar_name   String? @db.VarChar(200)
+  phar_bcode  String? @db.VarChar(200)
+  phar_desc   String? @db.Text
+  phar_qty    String? @db.VarChar(200)
+  phar_cat    String? @db.VarChar(200)
+  phar_vendor String? @db.VarChar(200)
+}
+
+model his_pharmaceuticals_categories {
+  pharm_cat_id   Int     @id @default(autoincrement())
+  pharm_cat_name String? @db.VarChar(200)
+  pharm_cat_vendor String? @db.VarChar(200)
+  pharm_cat_desc String? @db.Text
+}
+
+model his_prescriptions {
+  pres_id         Int      @id @default(autoincrement())
+  pres_pat_name   String?  @db.VarChar(200)
+  pres_pat_age    String?  @db.VarChar(200)
+  pres_pat_number String?  @db.VarChar(200)
+  pres_number     String?  @db.VarChar(200)
+  pres_pat_addr   String?  @db.VarChar(200)
+  pres_pat_type   String?  @db.VarChar(200)
+  pres_date       DateTime @default(now()) @updatedAt
+  pres_pat_ailment String?  @db.VarChar(200)
+  pres_ins        String?  @db.Text
+}
+
+model his_pwdresets {
+  id    Int     @id @default(autoincrement())
+  email String  @db.VarChar(200)
+}
+
+model his_surgery {
+  s_id          Int      @id @default(autoincrement())
+  s_number      String?  @db.VarChar(200)
+  s_doc         String?  @db.VarChar(200)
+  s_pat_number  String?  @db.VarChar(200)
+  s_pat_name    String?  @db.VarChar(200)
+  s_pat_ailment String?  @db.VarChar(200)
+  s_pat_date    DateTime @default(now()) @updatedAt
+  s_pat_status  String?  @db.VarChar(200)
+}
+
+model his_vendor {
+  v_id     Int     @id @default(autoincrement())
+  v_number String? @db.VarChar(200)
+  v_name   String? @db.VarChar(200)
+  v_adr    String? @db.VarChar(200)
+  v_mobile String? @db.VarChar(200)
+  v_email  String? @db.VarChar(200)
+  v_phone  String? @db.VarChar(200)
+  v_desc   String? @db.Text
+}
+
+model his_vitals {
+  vit_id        Int      @id @default(autoincrement())
+  vit_number    String?  @db.VarChar(200)
+  vit_pat_number String?  @db.VarChar(200)
+  vit_bodytemp  String?  @db.VarChar(200)
+  vit_heartpulse String?  @db.VarChar(200)
+  vit_resprate  String?  @db.VarChar(200)
+  vit_bloodpress String?  @db.VarChar(200)
+  vit_daterec   DateTime @default(now()) @updatedAt
+}
